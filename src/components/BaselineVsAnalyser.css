@@ -1,0 +1,85 @@
+.baseline-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px 32px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.comparison-panel {
+  padding: 24px;
+}
+
+.comparison-actions {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.comparison-results {
+  animation: slide-up 0.4s ease-out;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.comparison-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--border);
+  background: var(--bg-surface);
+}
+
+.comparison-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.comparison-table tr:hover {
+  background: var(--bg-surface);
+}
+
+.metric-label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.metric-val {
+  font-family: var(--font-mono);
+}
+
+.metric-target {
+  color: var(--accent-bright);
+  font-weight: 600;
+}
+
+.metric-pass {
+  color: var(--low);
+  font-weight: 700;
+}
+
+.metric-fail {
+  color: var(--critical);
+  font-weight: 700;
+}
+
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+}
+
+.mb-16 { margin-bottom: 16px; }

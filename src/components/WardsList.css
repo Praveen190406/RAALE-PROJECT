@@ -1,0 +1,277 @@
+/* ============================================================
+   WardsList – Ward Overview Cards
+   ============================================================ */
+
+.wards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px 32px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* ── Header ── */
+.wards-list-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.wards-list-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.wards-list-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stat-chip {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.stat-chip--critical { background: var(--critical-bg); color: var(--critical); }
+.stat-chip--high     { background: var(--high-bg);     color: var(--high); }
+
+.wards-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+.sort-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.filter-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.filter-select {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  padding: 7px 12px;
+  outline: none;
+  transition: border-color var(--transition);
+  min-width: 140px;
+}
+.filter-select:focus { border-color: var(--accent); }
+.filter-select option { background: var(--bg-card); }
+
+.stream-toggle-btn {
+  padding: 7px 16px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all var(--transition);
+}
+.stream-toggle-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+}
+
+/* ── Legend ── */
+.wards-legend {
+  display: flex;
+  gap: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.ward-legend-item     { display: flex; align-items: center; gap: 5px; }
+.ward-legend-critical { color: var(--critical); }
+.ward-legend-high     { color: var(--high); }
+.ward-legend-medium   { color: var(--medium); }
+
+/* ── Grid ── */
+.wards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* ── Ward card ── */
+.ward-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 3px solid var(--border);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.ward-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.ward-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.ward-card-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+.ward-card-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ── Trend chips ── */
+.trend-chip {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.trend-chip--up     { background: rgba(239,68,68,0.15);  color: var(--critical); }
+.trend-chip--down   { background: rgba(34,197,94,0.15);  color: var(--low); }
+.trend-chip--stable { background: rgba(124,130,160,0.15); color: var(--text-secondary); }
+
+/* ── Ward stats ── */
+.ward-card-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.ward-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 8px;
+  background: var(--bg-card);
+  gap: 3px;
+}
+.ward-stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+}
+.ward-stat-value--critical { color: var(--critical); }
+.ward-stat-value--high     { color: var(--high); }
+.ward-stat-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+/* ── Risk bar ── */
+.ward-risk-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.ward-risk-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  min-width: 70px;
+}
+.wl-risk-bar-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.wl-risk-bar-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.wl-risk-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.wl-risk-bar-label {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  min-width: 24px;
+  text-align: right;
+}
+
+/* ── Recent alarms ── */
+.ward-recent {
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.ward-recent-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.ward-recent-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.ward-recent-row:last-child { border-bottom: none; }
+.ward-recent-row--critical { border-left: 2px solid var(--critical); padding-left: 6px; }
+.ward-recent-row--high     { border-left: 2px solid var(--high);     padding-left: 6px; }
+.ward-recent-patient { font-weight: 500; color: var(--text-primary); }
+.ward-recent-drug    { color: var(--text-secondary); }
+.ward-recent-time    { font-family: var(--font-mono); color: var(--text-muted); font-size: 11px; }
+
+/* ── View button ── */
+.ward-view-btn {
+  margin: 14px 20px;
+  padding: 8px 14px;
+  background: rgba(59,130,246,0.08);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: var(--radius-sm);
+  color: var(--accent-bright);
+  font-size: 12px;
+  font-weight: 600;
+  transition: all var(--transition);
+  text-align: center;
+  align-self: flex-start;
+}
+.ward-view-btn:hover {
+  background: rgba(59,130,246,0.18);
+  border-color: rgba(59,130,246,0.4);
+}

@@ -1,0 +1,180 @@
+/* ============================================================
+   WardAlarm Sentinel – Global Design System
+   ============================================================ */
+
+:root {
+  /* --- Color Palette --- */
+  --bg-base:       #0a0c14;
+  --bg-surface:    #111420;
+  --bg-card:       #161927;
+  --bg-card-hover: #1c2035;
+  --bg-input:      #1a1e2e;
+  --bg-glass:      rgba(22, 25, 39, 0.85);
+
+  --border:        rgba(255,255,255,0.07);
+  --border-hover:  rgba(255,255,255,0.14);
+
+  --text-primary:   #e8eaf0;
+  --text-secondary: #7c82a0;
+  --text-muted:     #454960;
+
+  /* Brand / accent */
+  --accent:        #3b82f6;
+  --accent-bright: #60a5fa;
+  --accent-glow:   rgba(59, 130, 246, 0.25);
+
+  /* Severity */
+  --critical:      #ef4444;
+  --critical-bg:   rgba(239, 68, 68, 0.12);
+  --critical-glow: rgba(239, 68, 68, 0.3);
+
+  --high:          #f97316;
+  --high-bg:       rgba(249, 115, 22, 0.12);
+
+  --medium:        #eab308;
+  --medium-bg:     rgba(234, 179, 8, 0.12);
+
+  --low:           #22c55e;
+  --low-bg:        rgba(34, 197, 94, 0.12);
+
+  --resolved:      #10b981;
+  --resolved-bg:   rgba(16, 185, 129, 0.12);
+
+  /* --- Typography --- */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  /* --- Shadows --- */
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md:   0 4px 16px rgba(0,0,0,0.45);
+  --shadow-lg:   0 8px 32px rgba(0,0,0,0.6);
+  --shadow-glow: 0 0 24px rgba(59,130,246,0.15);
+
+  /* --- Spacing --- */
+  --sidebar-w: 240px;
+  --header-h:  60px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* --- Transitions --- */
+  --transition: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--bg-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ============================================================
+   Scrollbar
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+/* ============================================================
+   Typography helpers
+   ============================================================ */
+.text-primary   { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted     { color: var(--text-muted); }
+.text-mono      { font-family: var(--font-mono); }
+.font-semibold  { font-weight: 600; }
+.font-medium    { font-weight: 500; }
+
+/* ============================================================
+   Severity badges
+   ============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.badge-critical { background: var(--critical-bg); color: var(--critical); }
+.badge-high     { background: var(--high-bg);     color: var(--high); }
+.badge-medium   { background: var(--medium-bg);   color: var(--medium); }
+.badge-low      { background: var(--low-bg);       color: var(--low); }
+.badge-resolved { background: var(--resolved-bg);  color: var(--resolved); }
+.badge-active   { background: rgba(59,130,246,0.15); color: var(--accent-bright); }
+
+/* ============================================================
+   Pulse animation for live indicators
+   ============================================================ */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(0.85); box-shadow: 0 0 0 0 var(--critical-glow); }
+  70%  { transform: scale(1);    box-shadow: 0 0 0 6px rgba(239,68,68,0); }
+  100% { transform: scale(0.85); box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.35s ease forwards;
+}
+
+/* ============================================================
+   Button base
+   ============================================================ */
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: var(--transition);
+}
+
+/* ============================================================
+   Card base
+   ============================================================ */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
+}

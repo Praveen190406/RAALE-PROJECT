@@ -1,0 +1,62 @@
+.failure-modes-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px 32px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.failure-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.failure-card {
+  padding: 24px;
+}
+
+.failure-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.failure-type {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.failure-badges {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.failure-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.failure-field {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.failure-block {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.failure-block--desc { background: var(--bg-surface); color: var(--text-secondary); }
+.failure-block--uncertainty { background: rgba(249,115,22,0.08); color: var(--high); }
+.failure-block--risk { background: rgba(239,68,68,0.08); color: var(--critical); }
+.failure-block--lesson { background: rgba(59,130,246,0.06); color: var(--accent-bright); }

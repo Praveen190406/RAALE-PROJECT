@@ -1,0 +1,167 @@
+/**
+ * Drug Registry – High-Risk Medicines
+ * Includes risk classification, therapeutic category, and clinical notes.
+ */
+
+export const DRUG_REGISTRY = [
+  {
+    id: 'D001',
+    name: 'Warfarin',
+    dose: '5mg',
+    category: 'Anticoagulant',
+    riskLevel: 'critical',
+    riskScore: 95,
+    monitorParam: 'INR',
+    notes: 'Narrow therapeutic index. Strict INR monitoring required.',
+  },
+  {
+    id: 'D002',
+    name: 'Heparin',
+    dose: '5000u',
+    category: 'Anticoagulant',
+    riskLevel: 'critical',
+    riskScore: 93,
+    monitorParam: 'APTT',
+    notes: 'High haemorrhagic risk. Monitor APTT 6-hourly.',
+  },
+  {
+    id: 'D003',
+    name: 'Methotrexate',
+    dose: '10mg',
+    category: 'Antineoplastic',
+    riskLevel: 'critical',
+    riskScore: 91,
+    monitorParam: 'FBC / LFT',
+    notes: 'Weekly dosing regime. Overdose risk if daily schedule applied.',
+  },
+  {
+    id: 'D004',
+    name: 'Phenytoin',
+    dose: '300mg',
+    category: 'Anticonvulsant',
+    riskLevel: 'high',
+    riskScore: 84,
+    monitorParam: 'Phenytoin level',
+    notes: 'Narrow therapeutic window. Non-linear pharmacokinetics.',
+  },
+  {
+    id: 'D005',
+    name: 'Digoxin',
+    dose: '0.25mg',
+    category: 'Cardiac Glycoside',
+    riskLevel: 'high',
+    riskScore: 88,
+    monitorParam: 'Digoxin level / K+',
+    notes: 'Toxicity risk at therapeutic doses. Monitor renal function.',
+  },
+  {
+    id: 'D006',
+    name: 'Insulin Glargine',
+    dose: '20u',
+    category: 'Antidiabetic',
+    riskLevel: 'high',
+    riskScore: 82,
+    monitorParam: 'Blood glucose',
+    notes: 'Hypoglycaemia risk. Verify dose against sliding scale.',
+  },
+  {
+    id: 'D007',
+    name: 'Amiodarone',
+    dose: '200mg',
+    category: 'Antiarrhythmic',
+    riskLevel: 'critical',
+    riskScore: 90,
+    monitorParam: 'TFT / LFT / CXR',
+    notes: 'Organ toxicity profile. Extensive drug interactions.',
+  },
+  {
+    id: 'D008',
+    name: 'Lithium',
+    dose: '400mg',
+    category: 'Mood Stabiliser',
+    riskLevel: 'high',
+    riskScore: 86,
+    monitorParam: 'Lithium level / TFT',
+    notes: 'Narrow therapeutic index. Toxicity may be severe.',
+  },
+  {
+    id: 'D009',
+    name: 'Vancomycin',
+    dose: '1g',
+    category: 'Glycopeptide Antibiotic',
+    riskLevel: 'high',
+    riskScore: 78,
+    monitorParam: 'Trough level / creatinine',
+    notes: 'Nephrotoxic. AUC-guided dosing preferred.',
+  },
+  {
+    id: 'D010',
+    name: 'Morphine',
+    dose: '10mg',
+    category: 'Opioid Analgesic',
+    riskLevel: 'high',
+    riskScore: 80,
+    monitorParam: 'Respiratory rate / sedation',
+    notes: 'Respiratory depression risk. Have naloxone available.',
+  },
+  {
+    id: 'D011',
+    name: 'Tacrolimus',
+    dose: '1mg',
+    category: 'Immunosuppressant',
+    riskLevel: 'critical',
+    riskScore: 89,
+    monitorParam: 'Trough level / creatinine',
+    notes: 'Organ toxicity and rejection risk if missed. Strict compliance needed.',
+  },
+  {
+    id: 'D012',
+    name: 'Aminophylline',
+    dose: '250mg',
+    category: 'Bronchodilator',
+    riskLevel: 'medium',
+    riskScore: 72,
+    monitorParam: 'Theophylline level',
+    notes: 'Arrhythmia risk in toxicity. Narrow therapeutic window.',
+  },
+  {
+    id: 'D013',
+    name: 'Clozapine',
+    dose: '100mg',
+    category: 'Antipsychotic',
+    riskLevel: 'high',
+    riskScore: 83,
+    monitorParam: 'WBC / neutrophils',
+    notes: 'Agranulocytosis risk. Mandatory haematological monitoring.',
+  },
+  {
+    id: 'D014',
+    name: 'Ketamine',
+    dose: '50mg',
+    category: 'Dissociative Anaesthetic',
+    riskLevel: 'high',
+    riskScore: 77,
+    monitorParam: 'BP / HR / sedation',
+    notes: 'Hypertension and dissociation. Use only in monitored settings.',
+  },
+  {
+    id: 'D015',
+    name: 'Metformin',
+    dose: '1000mg',
+    category: 'Biguanide Antidiabetic',
+    riskLevel: 'medium',
+    riskScore: 55,
+    monitorParam: 'eGFR',
+    notes: 'Lactic acidosis risk in renal impairment. Withhold if eGFR <30.',
+  },
+]
+
+/** Convenience map: id → drug object */
+export const DRUGS_BY_ID = Object.fromEntries(
+  DRUG_REGISTRY.map((d) => [d.id, d])
+)
+
+/** Count of drugs by risk level */
+export const HIGH_RISK_COUNT = DRUG_REGISTRY.filter(
+  (d) => d.riskLevel === 'critical' || d.riskLevel === 'high'
+).length
