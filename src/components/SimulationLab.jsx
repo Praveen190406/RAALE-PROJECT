@@ -5,18 +5,18 @@ import { buildSeedAlarms } from '../engine/alarmStream'
 import './SimulationLab.css'
 
 export default function SimulationLab() {
-  const { dispatch } = useAlarms()
+  const { batchAddAlarms, resetAlarmsToSeed } = useAlarms()
   const [lastAction, setLastAction] = useState(null)
 
-  const handleInject = (scenarioName, filterFn) => {
+  const handleInject = async (scenarioName, filterFn) => {
     const alarms = EXPERIMENT_DATASET.filter(filterFn)
-    dispatch({ type: 'ADD_MULTIPLE_ALARMS', payload: alarms })
-    setLastAction(`Injected scenario: ${scenarioName} (${alarms.length} alarms)`)
+    await batchAddAlarms(alarms)
+    setLastAction(`Injected scenario: ${scenarioName} (${alarms.length} alarms, synced to SQLite)`)
   }
 
-  const handleReset = () => {
-    dispatch({ type: 'SET_ALARMS', payload: buildSeedAlarms() })
-    setLastAction('Reset to baseline seed data.')
+  const handleReset = async () => {
+    await resetAlarmsToSeed()
+    setLastAction('Reset database to baseline seed data.')
   }
 
   return (

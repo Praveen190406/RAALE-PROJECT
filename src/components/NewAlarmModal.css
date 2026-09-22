@@ -1,0 +1,111 @@
+.new-alarm-modal {
+  max-width: 560px;
+  width: 100%;
+  background: #111827;
+  border: 1px solid #1f293d;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.new-alarm-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.alarm-summary-preview {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.summary-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.summary-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.summary-tag {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.ward-tag {
+  background: #1e293b;
+  color: #38bdf8;
+  border: 1px solid #38bdf844;
+}
+
+.drug-tag {
+  background: #1e293b;
+  color: #fb923c;
+  border: 1px solid #fb923c44;
+}
+
+.sev-critical {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid #ef444466;
+}
+
+.sev-high {
+  background: rgba(249, 115, 22, 0.2);
+  color: #fb923c;
+  border: 1px solid #f9731666;
+}
+
+.sev-medium {
+  background: rgba(234, 179, 8, 0.2);
+  color: #fde047;
+  border: 1px solid #eab30866;
+}
+
+.sev-low {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border: 1px solid #22c55e66;
+}
+
+.summary-help {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.modal-actions-bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.modal-error-banner {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  margin-bottom: 14px;
+}

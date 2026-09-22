@@ -13,16 +13,16 @@ function StatusBadge({ status }) {
 }
 
 function PatientDetailModal({ patient, onClose }) {
-  const { alarms, patterns, dispatch } = useAlarms()
+  const { alarms, patterns, acknowledgeAlarm, resolveAlarm } = useAlarms()
   const [reviewNote, setReviewNote] = useState('')
   const [savedActions, setSavedActions] = useState([])
 
   const addAction = (label, alarmIds) => {
     if (alarmIds && alarmIds.length > 0) {
       if (label === 'Confirmed Escalation') {
-        alarmIds.forEach(id => dispatch({ type: 'ACKNOWLEDGE_ALARM', payload: id }))
+        alarmIds.forEach(id => acknowledgeAlarm(id))
       } else if (label === 'Marked as Nuisance') {
-        alarmIds.forEach(id => dispatch({ type: 'RESOLVE_ALARM', payload: id }))
+        alarmIds.forEach(id => resolveAlarm(id))
       }
     }
     setSavedActions(prev => [
@@ -191,7 +191,7 @@ function PatientDetailModal({ patient, onClose }) {
   )
 }
 
-export default function Patients() {
+export default function Patients({ onOpenNewPatient }) {
   const { patients, alarms } = useAlarms()
   const [searchText, setSearchText] = useState('')
   const [selectedPatient, setSelectedPatient] = useState(null)
@@ -228,11 +228,16 @@ export default function Patients() {
 
   return (
     <div className="patients-page animate-fade-in-up">
-      <div className="page-header">
+      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <h1 className="page-title">Patients Directory</h1>
           <p className="page-subtitle">Monitored patients and alarm contexts</p>
         </div>
+        {onOpenNewPatient && (
+          <button className="btn btn-primary" onClick={onOpenNewPatient}>
+            + Admit Inpatient
+          </button>
+        )}
       </div>
 
       <div className="patients-filters card">

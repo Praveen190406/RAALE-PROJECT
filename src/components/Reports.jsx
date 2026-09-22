@@ -1,7 +1,8 @@
-import { useMemo, useRef } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { useAlarms } from '../context/AlarmContext'
 import { EXPERIMENT_DATASET, computeMetrics, TARGET_METRICS } from '../data/experimentDataset'
 import { analysePatterns } from '../engine/patternAnalyser'
+import api from '../services/api'
 import './Reports.css'
 
 /**
@@ -48,6 +49,26 @@ function MetricRow({ label, baseline, target, measured, isPercentage = true }) {
 export default function Reports() {
   const { alarms, patterns } = useAlarms()
   const reportRef = useRef(null)
+
+  const [savedReports, setSavedReports] = useState([])
+  const [saving, setSaving] = useState(false)
+  const [saveToast, setSaveToast] = useState('')
+  const [showSavedModal, setShowSavedModal] = useState(false)
+
+  // Load saved reports from SQLite database
+  useEffect(() => {
+    async function loadReports() {
+      try {
+        const res = await api.getReports()
+        if (res.success && res.reports) {
+          setSavedReports(res.reports)
+        }
+      } catch (err) {
+        console.warn('Could not load saved reports from DB:', err.message)
+      }
+    }
+    loadReports()
+  }, [])
 
   // Run the improved analyser on the experiment dataset
   const improvedPatterns = useMemo(
@@ -125,21 +146,100 @@ export default function Reports() {
     window.print()
   }
 
+  async function handleSaveReport() {
+    setSaving(true)
+    try {
+      const res = await api.saveReport({
+        title: `Clinical Performance Evaluation Report (${new Date().toLocaleDateString('en-GB')})`,
+        totalAlarms: alarms.length,
+        activeAlarms: alarms.filter((a) => a.status === 'Active').length,
+        patternsDetected: patterns.length,
+        data: {
+          improvedMetrics: improved,
+          baselineMetrics: baseline,
+          datasetStats: dsStats,
+          generatedAt: new Date().toISOString(),
+        },
+      })
+      if (res.success) {
+        setSaveToast('Report saved to database successfully!')
+        setSavedReports((prev) => [res.report, ...prev])
+        setTimeout(() => setSaveToast(''), 3500)
+      }
+    } catch (err) {
+      setSaveToast(`Error saving report: ${err.message}`)
+      setTimeout(() => setSaveToast(''), 3500)
+    } finally {
+      setSaving(false)
+    }
+  }
+
   const reportDate = new Date().toLocaleDateString('en-GB', {
     day: '2-digit', month: 'long', year: 'numeric',
   })
 
   return (
     <div className="reports-page animate-fade-in-up">
-      <div className="reports-header">
+      <div className="reports-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <h1 className="page-title">Experiment Report</h1>
           <p className="page-subtitle">WardAlarm Sentinel — Alarm Pattern Analyser Evaluation · {reportDate}</p>
         </div>
-        <div className="reports-actions">
-          <button className="btn btn-primary" onClick={handlePrint}>🖨 Print Report</button>
+        <div className="reports-actions" style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          {saveToast && (
+            <span style={{ fontSize: '0.8rem', color: '#38bdf8', fontWeight: '500' }}>
+              {saveToast}
+            </span>
+          )}
+          <button
+            className="btn btn-secondary"
+            onClick={() => setShowSavedModal(true)}
+            title="View saved reports stored in SQLite"
+          >
+            📂 Saved Reports ({savedReports.length})
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={handleSaveReport}
+            disabled={saving}
+          >
+            {saving ? 'Saving...' : '💾 Save Report to DB'}
+          </button>
+          <button className="btn btn-secondary" onClick={handlePrint}>🖨 Print</button>
         </div>
       </div>
+
+      {/* Modal for Saved Reports */}
+      {showSavedModal && (
+        <div className="modal-backdrop" onClick={() => setShowSavedModal(false)}>
+          <div className="modal-card" style={{ maxWidth: '600px', width: '100%', background: '#111827', padding: '24px' }} onClick={(e) => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <h2 style={{ fontSize: '1.2rem', color: '#f1f5f9', margin: 0 }}>Persistent Clinical Reports</h2>
+              <button style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer' }} onClick={() => setShowSavedModal(false)}>✕</button>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: '0 0 16px 0' }}>
+              These reports are stored in SQLite (server/data/clinical_alarm.db) and persist across server restarts.
+            </p>
+            {savedReports.length === 0 ? (
+              <p style={{ color: '#64748b' }}>No saved reports yet. Click "Save Report to DB" to generate one.</p>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '350px', overflowY: 'auto' }}>
+                {savedReports.map((r) => (
+                  <div key={r.id} style={{ background: '#0a0f1d', border: '1px solid #1e293b', padding: '12px', borderRadius: '8px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ fontWeight: '600', color: '#38bdf8' }}>{r.title}</span>
+                      <span style={{ fontSize: '0.72rem', color: '#64748b' }}>{r.dateFormatted || (r.createdAt ? new Date(r.createdAt).toLocaleDateString('en-GB') : 'Recent')}</span>
+                    </div>
+                    <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '4px' }}>
+                      Author: {r.generatedBy} · Total Alarms: {r.totalAlarms} · Patterns: {r.patternsDetected}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="report-body card" ref={reportRef}>
 

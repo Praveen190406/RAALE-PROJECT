@@ -102,8 +102,8 @@ function ExplainPanel({ alarm, patterns, onClose }) {
 }
 
 /* ── Main AlarmLog ──────────────────────────────────────────── */
-export default function AlarmLog() {
-  const { alarms, patterns, dispatch } = useAlarms()
+export default function AlarmLog({ onOpenNewAlarm }) {
+  const { alarms, patterns, acknowledgeAlarm, resolveAlarm } = useAlarms()
 
   const [filterStatus,   setFilterStatus]   = useState('all')
   const [filterSeverity, setFilterSeverity] = useState('all')
@@ -170,6 +170,11 @@ export default function AlarmLog() {
             <span className="stat-chip stat-chip--high">{summaryStats.high} high</span>
           </p>
         </div>
+        {onOpenNewAlarm && (
+          <button className="btn btn-primary" onClick={onOpenNewAlarm}>
+            + Trigger New Alarm
+          </button>
+        )}
       </div>
 
       <div className="alarm-log-filters card">
@@ -264,10 +269,10 @@ export default function AlarmLog() {
                       <button className="action-btn action-btn-detail" onClick={() => setSelectedAlarm(alarm)}>Detail</button>
                     )}
                     {alarm.status === 'Active' && (
-                      <button className="action-btn action-btn-ack" onClick={() => dispatch({ type: 'ACKNOWLEDGE_ALARM', payload: alarm.id })}>Ack</button>
+                      <button className="action-btn action-btn-ack" onClick={() => acknowledgeAlarm(alarm.id)}>Ack</button>
                     )}
                     {alarm.status !== 'Resolved' && (
-                      <button className="action-btn action-btn-res" onClick={() => dispatch({ type: 'RESOLVE_ALARM', payload: alarm.id })}>Resolve</button>
+                      <button className="action-btn action-btn-res" onClick={() => resolveAlarm(alarm.id)}>Resolve</button>
                     )}
                   </td>
                 </tr>

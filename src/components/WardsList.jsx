@@ -93,7 +93,7 @@ function WardCard({ ward, alarmList, riskLevel, onNavigateAlarms }) {
 }
 
 /* ── Main WardsList ────────────────────────────────────── */
-export default function WardsList({ onNavigate }) {
+export default function WardsList({ onNavigate, onOpenNewWard }) {
   const { alarms, wardStats, wards, dispatch, isStreaming } = useAlarms()
   const [sortBy, setSortBy] = useState('risk')
 
@@ -133,6 +133,11 @@ export default function WardsList({ onNavigate }) {
           </p>
         </div>
         <div className="wards-controls">
+          {onOpenNewWard && (
+            <button className="btn btn-primary" onClick={onOpenNewWard}>
+              + Add Ward
+            </button>
+          )}
           <div className="sort-group">
             <label className="filter-label" htmlFor="ward-sort">Sort by</label>
             <select id="ward-sort" className="filter-select" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>

@@ -1,17 +1,22 @@
 {
-  "name": "raale",
+  "name": "intelligent-clinical-medication-alarm-system",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "server": "node server/index.js",
+    "start": "node server/index.js",
+    "test:api": "node server/test_api.js",
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "express": "^5.2.1",
+    "dotenv": "^17.4.3"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",

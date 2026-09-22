@@ -87,7 +87,7 @@ function DrugModal({ drug, alarms, onClose }) {
 }
 
 /* ── Main DrugRegistry ─────────────────────────────────── */
-export default function DrugRegistry() {
+export default function DrugRegistry({ onOpenNewDrug }) {
   const { drugs, alarms } = useAlarms()
   const [searchText,  setSearchText]  = useState('')
   const [filterLevel, setFilterLevel] = useState('all')
@@ -111,7 +111,8 @@ export default function DrugRegistry() {
         (d) =>
           d.name.toLowerCase().includes(q) ||
           d.category.toLowerCase().includes(q) ||
-          d.monitorParam.toLowerCase().includes(q)
+          d.monitorParam.toLowerCase().includes(q) ||
+          d.notes.toLowerCase().includes(q)
       )
     }
     list.sort((a, b) => {
@@ -145,13 +146,18 @@ export default function DrugRegistry() {
 
   return (
     <div className="drug-registry animate-fade-in-up">
-      <div className="drug-registry-header">
+      <div className="drug-registry-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <h1 className="drug-registry-title">Drug Registry</h1>
           <p className="drug-registry-subtitle">
             {filtered.length} of {drugs.length} drugs · High-risk medicine reference
           </p>
         </div>
+        {onOpenNewDrug && (
+          <button className="btn btn-primary" onClick={onOpenNewDrug}>
+            + Register Medication
+          </button>
+        )}
       </div>
 
       {/* Filters */}

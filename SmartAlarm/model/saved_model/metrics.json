@@ -1,0 +1,126 @@
+{
+  "baseline": {
+    "model": "Baseline",
+    "accuracy": 0.214,
+    "precision": 0.3032,
+    "recall": 0.2544,
+    "f1": 0.0964,
+    "sensitivity": 0.0051,
+    "specificity": 1.0,
+    "false_positive_rate": 0.0,
+    "false_negative_rate": 0.9949,
+    "dangerous_pattern_recall": 0.0051,
+    "nuisance_high_priority_rate": 0.0,
+    "confusion_matrix": [
+      [
+        0,
+        557,
+        0,
+        0
+      ],
+      [
+        0,
+        255,
+        0,
+        0
+      ],
+      [
+        0,
+        276,
+        0,
+        0
+      ],
+      [
+        0,
+        111,
+        0,
+        2
+      ]
+    ],
+    "n_false_positives": 0,
+    "n_false_negatives": 387
+  },
+  "logistic_regression": {
+    "model": "Logistic Regression",
+    "accuracy": 0.9767,
+    "precision": 0.9712,
+    "recall": 0.9775,
+    "f1": 0.9742,
+    "sensitivity": 0.9897,
+    "specificity": 0.9988,
+    "false_positive_rate": 0.0012,
+    "false_negative_rate": 0.0103,
+    "dangerous_pattern_recall": 0.9897,
+    "nuisance_high_priority_rate": 0.0018,
+    "confusion_matrix": [
+      [
+        549,
+        7,
+        1,
+        0
+      ],
+      [
+        10,
+        245,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        266,
+        6
+      ],
+      [
+        0,
+        0,
+        0,
+        113
+      ]
+    ],
+    "n_false_positives": 1,
+    "n_false_negatives": 4
+  },
+  "random_forest": {
+    "model": "Random Forest",
+    "accuracy": 0.9967,
+    "precision": 0.9977,
+    "recall": 0.9962,
+    "f1": 0.9969,
+    "sensitivity": 0.9974,
+    "specificity": 1.0,
+    "false_positive_rate": 0.0,
+    "false_negative_rate": 0.0026,
+    "dangerous_pattern_recall": 0.9974,
+    "nuisance_high_priority_rate": 0.0,
+    "confusion_matrix": [
+      [
+        557,
+        0,
+        0,
+        0
+      ],
+      [
+        3,
+        252,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        275,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        113
+      ]
+    ],
+    "n_false_positives": 0,
+    "n_false_negatives": 1
+  },
+  "best_model": "Random Forest"
+}

@@ -17,8 +17,18 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Environment and database files
+.env
+.env*.local
+*.db
+*.db-journal
+*.db-wal
+*.sqlite
+server/data/*.db
+server/data/*.db-wal
+server/data/*.db-shm
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
